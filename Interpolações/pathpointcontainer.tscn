@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://bu3o78x27fjct"]
+
+[ext_resource type="Texture2D" uid="uid://bdat7rm1xeaqc" path="res://trash.png" id="1_e2rjs"]
+[ext_resource type="Script" uid="uid://bg77cmnod22hp" path="res://pathpoint.gd" id="1_w3md3"]
+
+[node name="PATHPOINT1" type="PanelContainer" unique_id=1562257838 node_paths=PackedStringArray("X_spin_box", "Y_spin_box", "Z_spin_box")]
+size_flags_horizontal = 3
+script = ExtResource("1_w3md3")
+X_spin_box = NodePath("MarginContainer/HBoxContainer/X/SpinBox")
+Y_spin_box = NodePath("MarginContainer/HBoxContainer/Y/SpinBox")
+Z_spin_box = NodePath("MarginContainer/HBoxContainer/Z/SpinBox")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=262400873]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=107072409]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="X" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=581927112]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/X" unique_id=1727273469]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48235294, 0.23921569, 0.28235295, 1)
+text = "X"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/X" unique_id=568124766]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+
+[node name="Y" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=2098438194]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Y" unique_id=167641228]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39215687, 0.46666667, 0.23529412, 1)
+text = "Y"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/Y" unique_id=973997804]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+
+[node name="Z" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1742428568]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Z" unique_id=1523128282]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25882354, 0.38431373, 0.5254902, 1)
+text = "Z"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/Z" unique_id=230688796]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+
+[node name="Delete" type="Button" parent="MarginContainer/HBoxContainer" unique_id=2056298733]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/icon_max_width = 23
+icon = ExtResource("1_e2rjs")
+icon_alignment = 1
+
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/X/SpinBox" to="." method="_on_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/Y/SpinBox" to="." method="_on_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/Z/SpinBox" to="." method="_on_value_changed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Delete" to="." method="delete_point"]

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cib5dhvwrtes7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ntw45"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6yjb0"]
+material = SubResource("StandardMaterial3D_ntw45")
+radius = 0.125
+height = 0.25
+
+[node name="MeshInstance3D" type="MeshInstance3D" unique_id=909901600]
+mesh = SubResource("SphereMesh_6yjb0")

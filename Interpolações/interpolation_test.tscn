@@ -1,0 +1,155 @@
+[gd_scene format=3 uid="uid://bflr8tknuw0jm"]
+
+[ext_resource type="Script" uid="uid://ktt8fr3f4hsy" path="res://path.gd" id="1_3f47g"]
+[ext_resource type="PackedScene" uid="uid://cqkhh1fls67eq" path="res://path_point.tscn" id="2_36hej"]
+[ext_resource type="PackedScene" uid="uid://cib5dhvwrtes7" path="res://point.tscn" id="2_ywjyn"]
+[ext_resource type="Script" uid="uid://boajgxh763f5j" path="res://path_points.gd" id="4_8ujok"]
+[ext_resource type="PackedScene" uid="uid://bu3o78x27fjct" path="res://pathpointcontainer.tscn" id="5_8ujok"]
+
+[sub_resource type="Curve3D" id="Curve3D_8ujok"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6yjb0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nck7t"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1s5k1"]
+material = SubResource("StandardMaterial3D_nck7t")
+
+[node name="Node3D" type="Node3D" unique_id=1230262897]
+
+[node name="Timer" type="Timer" parent="." unique_id=1827726867]
+wait_time = 10.0
+
+[node name="Path" type="Node" parent="." unique_id=1766907046 node_paths=PackedStringArray("points", "path_points_containers", "player", "new_point_button")]
+script = ExtResource("1_3f47g")
+point_scene = ExtResource("2_ywjyn")
+key_point_scene = ExtResource("2_36hej")
+path_container_scene = ExtResource("5_8ujok")
+points = [NodePath("../PathPoints/PathPoint2"), NodePath("../PathPoints/PathPoint"), NodePath("../PathPoints/PathPoint3")]
+path_points_containers = NodePath("../MarginContainer/Buttons/PathPoints")
+player = NodePath("../CharacterBody3D")
+timer = 10
+new_point_button = NodePath("../MarginContainer/Buttons/PathPoints/NewPoint")
+
+[node name="PathPoints" type="Node3D" parent="." unique_id=1743137006]
+unique_name_in_owner = true
+
+[node name="PathPoint" parent="PathPoints" unique_id=305253493 instance=ExtResource("2_36hej")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="PathPoint2" parent="PathPoints" unique_id=121345011 instance=ExtResource("2_36hej")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
+
+[node name="PathPoint3" parent="PathPoints" unique_id=832532717 instance=ExtResource("2_36hej")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 5)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=195339687]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1571766534]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer" unique_id=784627703]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Buttons" unique_id=53585695]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="START" type="Button" parent="MarginContainer/Buttons/HBoxContainer" unique_id=848603603]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "START ANIMATION"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Buttons/HBoxContainer" unique_id=2015095665]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Buttons/HBoxContainer/HBoxContainer" unique_id=509114099]
+layout_mode = 2
+text = "Time:"
+
+[node name="Timer" type="SpinBox" parent="MarginContainer/Buttons/HBoxContainer/HBoxContainer" unique_id=1126045546]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 60.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/Buttons/HBoxContainer" unique_id=1238332949]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Buttons/HBoxContainer/HBoxContainer2" unique_id=1770183151]
+layout_mode = 2
+text = "Number Of Points"
+
+[node name="NumPoints" type="SpinBox" parent="MarginContainer/Buttons/HBoxContainer/HBoxContainer2" unique_id=7429490]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 60.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/Buttons/HBoxContainer" unique_id=1019870265]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Buttons/HBoxContainer/HBoxContainer3" unique_id=1868142319]
+layout_mode = 2
+text = "Interpolation:"
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/Buttons/HBoxContainer/HBoxContainer3" unique_id=1428890363]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "Linear"
+popup/item_0/id = 0
+popup/item_1/text = "Bezier"
+popup/item_1/id = 1
+
+[node name="PathPoints" type="VBoxContainer" parent="MarginContainer/Buttons" unique_id=1920388900]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("4_8ujok")
+
+[node name="NewPoint" type="Button" parent="MarginContainer/Buttons/PathPoints" unique_id=1756326121]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(273, 47)
+layout_mode = 2
+text = "+ ADD PATH POINT"
+
+[node name="Timer_Label" type="Label" parent="MarginContainer" unique_id=1554274108]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Path3D" type="Path3D" parent="." unique_id=896011447]
+curve = SubResource("Curve3D_8ujok")
+debug_custom_color = Color(0.29013708, 0.64664555, 1.92523e-07, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=129100488]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1799782081]
+shape = SubResource("SphereShape3D_6yjb0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=940426568]
+mesh = SubResource("SphereMesh_1s5k1")
+
+[connection signal="pressed" from="MarginContainer/Buttons/HBoxContainer/START" to="Path" method="_on_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/Buttons/HBoxContainer/HBoxContainer/Timer" to="Path" method="_on_timer_value_changed"]
+[connection signal="value_changed" from="MarginContainer/Buttons/HBoxContainer/HBoxContainer2/NumPoints" to="Path" method="_on_num_points_value_changed"]
+[connection signal="item_selected" from="MarginContainer/Buttons/HBoxContainer/HBoxContainer3/OptionButton" to="Path" method="_on_option_button_item_selected"]
+[connection signal="pressed" from="MarginContainer/Buttons/PathPoints/NewPoint" to="Path" method="_on_new_point_pressed"]
