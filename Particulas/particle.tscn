@@ -1,0 +1,695 @@
+[gd_scene format=3 uid="uid://dujqrotukw4kd"]
+
+[ext_resource type="Script" uid="uid://cmy70ywlkim8a" path="res://particleSimulator.gd" id="1_kgu82"]
+[ext_resource type="Script" uid="uid://cd01r2nk6jr2o" path="res://gui.gd" id="2_pxd2d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kgu82"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_pxd2d"]
+sky_material = SubResource("ProceduralSkyMaterial_kgu82")
+
+[sub_resource type="Environment" id="Environment_547df"]
+background_mode = 2
+sky = SubResource("Sky_pxd2d")
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_osap4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxd2d"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Node3D" type="Node3D" unique_id=1901529758]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1345233634]
+environment = SubResource("Environment_547df")
+
+[node name="ParticleSimulator" type="Node3D" parent="." unique_id=353812113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_kgu82")
+life_time_randomness = 1.0
+spawn_range = SubResource("BoxMesh_osap4")
+start_color = Color(1, 0, 0, 1)
+finish_color = Color(1, 0.7607843, 0, 1)
+animation_position = Vector3(0, 2, 0)
+metadata/_custom_type_script = "uid://cmy70ywlkim8a"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1688573631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.475044, 0)
+size = Vector3(5, 0.2, 5)
+
+[node name="Gui" type="Control" parent="." unique_id=749039295 node_paths=PackedStringArray("particle_simulator", "size_box", "height_box", "radius_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_pxd2d")
+particle_simulator = NodePath("../ParticleSimulator")
+size_box = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Particle/Size")
+height_box = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Particle/Height")
+radius_box = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Particle/Radius")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Gui" unique_id=1092202970]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Gui/SubViewportContainer" unique_id=774414564]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Gui/SubViewportContainer/SubViewport" unique_id=98544936]
+transform = Transform3D(0.7102248, -0.4665064, 0.5272121, -0.011636534, 0.7410254, 0.6713762, -0.70387876, -0.482963, 0.5208661, 1, 7, 7)
+
+[node name="MarginContainer" type="MarginContainer" parent="Gui" unique_id=1721451922]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/MarginContainer" unique_id=1393579]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer" unique_id=14872094]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Particle Simulator" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1939926458]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator" unique_id=960335158]
+layout_mode = 2
+text = "PARTICLE SIMULATOR:"
+
+[node name="Emitting" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator" unique_id=1127632520]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="On_Off" type="CheckButton" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Emitting" unique_id=6104393]
+layout_mode = 2
+button_pressed = true
+text = "Emitting:"
+
+[node name="Max_Particle" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator" unique_id=415741824]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Max_Particles" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Max_Particle" unique_id=430895668]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Max_Particles" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Max_Particle/Max_Particles" unique_id=1464873962]
+layout_mode = 2
+text = "Max Particles: "
+
+[node name="Max_Particles2" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Max_Particle/Max_Particles" unique_id=671192081]
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 1.0
+value = 8.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Spawn_Size" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator" unique_id=2038637305]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size" unique_id=2067502247]
+layout_mode = 2
+
+[node name="Spawn_Box_Size" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer" unique_id=1201450706]
+layout_mode = 2
+text = "Spawn Box Size:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer" unique_id=107072409]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="X" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer" unique_id=581927112]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/X" unique_id=1727273469]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48235294, 0.23921569, 0.28235295, 1)
+text = "X"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/X" unique_id=568124766]
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Y" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer" unique_id=2098438194]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/Y" unique_id=167641228]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39215687, 0.46666667, 0.23529412, 1)
+text = "Y"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/Y" unique_id=973997804]
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Z" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer" unique_id=1742428568]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/Z" unique_id=1523128282]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25882354, 0.38431373, 0.5254902, 1)
+text = "Z"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/Z" unique_id=230688796]
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Particle" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1294245337]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle" unique_id=53771112]
+layout_mode = 2
+text = "PARTICLE:"
+
+[node name="Lifetime" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle" unique_id=1229121627]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Particle_life" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Lifetime" unique_id=489305947]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Particle_life" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Lifetime/Particle_life" unique_id=1056701572]
+layout_mode = 2
+text = "Particle Life Time: "
+
+[node name="Particle_life2" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Lifetime/Particle_life" unique_id=29496150]
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 0.01
+step = 0.01
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Ramdomness" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle" unique_id=951351507]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Particle_Random" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Ramdomness" unique_id=1602876969]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Particle_Random" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Ramdomness/Particle_Random" unique_id=517597070]
+layout_mode = 2
+text = "Particle Life Randomness: "
+
+[node name="Particle_Random2" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Ramdomness/Particle_Random" unique_id=774959383]
+layout_mode = 2
+size_flags_horizontal = 0
+max_value = 1.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Type" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle" unique_id=1140400497]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Particle_Random" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Type" unique_id=877477807]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Type/Particle_Random" unique_id=2131704595]
+layout_mode = 2
+text = "Particle Type: "
+
+[node name="Particle_Type" type="OptionButton" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Type/Particle_Random" unique_id=1874756869]
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "BOX"
+popup/item_0/id = 0
+popup/item_1/text = "SHPERE"
+popup/item_1/id = 1
+
+[node name="Size" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle" unique_id=621232546]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size" unique_id=258892996]
+layout_mode = 2
+
+[node name="Box_Particle_Size" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer" unique_id=179383052]
+layout_mode = 2
+text = "Box Particle Size:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer" unique_id=578741663]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="X" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer" unique_id=2007011010]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/X" unique_id=1818415016]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48235294, 0.23921569, 0.28235295, 1)
+text = "X"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/X" unique_id=908503883]
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Y" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer" unique_id=545283883]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/Y" unique_id=2101113901]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39215687, 0.46666667, 0.23529412, 1)
+text = "Y"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/Y" unique_id=2107844256]
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Z" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer" unique_id=1016294558]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/Z" unique_id=1681928306]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25882354, 0.38431373, 0.5254902, 1)
+text = "Z"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/Z" unique_id=2137804010]
+layout_mode = 2
+max_value = 5.0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Height" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle" unique_id=175171127]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Sphere_Particle_Height" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Height" unique_id=525340957]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Sphere_Particle_Height" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Height/Sphere_Particle_Height" unique_id=559492532]
+layout_mode = 2
+text = "Sphere Particle Height:"
+
+[node name="Sphere_Particle_Height2" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Height/Sphere_Particle_Height" unique_id=775747194]
+layout_mode = 2
+size_flags_horizontal = 0
+max_value = 5.0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Radius" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle" unique_id=1949567157]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Sphere_Particle_Radius" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Radius" unique_id=278875395]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Sphere_Particle_Radius" type="Label" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Radius/Sphere_Particle_Radius" unique_id=2112486298]
+layout_mode = 2
+text = "Sphere Particle Radius:"
+
+[node name="Sphere_Particle_Radius2" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Radius/Sphere_Particle_Radius" unique_id=1689104539]
+layout_mode = 2
+size_flags_horizontal = 0
+max_value = 5.0
+step = 0.1
+value = 0.5
+alignment = 1
+update_on_text_changed = true
+
+[node name="Animation" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer" unique_id=163895426]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=1993567315]
+layout_mode = 2
+text = "ANIMATION:"
+
+[node name="StartColor" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=1762143604]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/StartColor" unique_id=128616183]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/StartColor/HBoxContainer" unique_id=185107185]
+layout_mode = 2
+text = "Start Color:"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Gui/MarginContainer/VBoxContainer/Animation/StartColor/HBoxContainer" unique_id=1321556944]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "START COLOR"
+color = Color(1, 0, 0, 1)
+
+[node name="FinishColor" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=1131606702]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/FinishColor" unique_id=481548839]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/FinishColor/HBoxContainer" unique_id=1769598748]
+layout_mode = 2
+text = "Finish Color:"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Gui/MarginContainer/VBoxContainer/Animation/FinishColor/HBoxContainer" unique_id=1263083861]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "START COLOR"
+color = Color(1, 0.7607843, 0, 1)
+
+[node name="Rotation" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=683847012]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation" unique_id=1810845489]
+layout_mode = 2
+
+[node name="Box_Particle_Size" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer" unique_id=14925174]
+layout_mode = 2
+text = "Rotation:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer" unique_id=416783355]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="X" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer" unique_id=1451441920]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/X" unique_id=1323010213]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48235294, 0.23921569, 0.28235295, 1)
+text = "X"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/X" unique_id=587624412]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Y" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer" unique_id=3661455]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/Y" unique_id=220901199]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39215687, 0.46666667, 0.23529412, 1)
+text = "Y"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/Y" unique_id=1617600572]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Z" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer" unique_id=1761399381]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/Z" unique_id=2130215627]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25882354, 0.38431373, 0.5254902, 1)
+text = "Z"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/Z" unique_id=1860323081]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Position" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=993906982]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Position" unique_id=252687483]
+layout_mode = 2
+
+[node name="Box_Particle_Size" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer" unique_id=337894838]
+layout_mode = 2
+text = "Position:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer" unique_id=1519156896]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="X" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer" unique_id=1838437948]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/X" unique_id=240765651]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48235294, 0.23921569, 0.28235295, 1)
+text = "X"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/X" unique_id=37793090]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Y" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer" unique_id=1763611841]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/Y" unique_id=2133906570]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39215687, 0.46666667, 0.23529412, 1)
+text = "Y"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/Y" unique_id=251991662]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+value = 2.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Z" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer" unique_id=1105426963]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/Z" unique_id=283079782]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25882354, 0.38431373, 0.5254902, 1)
+text = "Z"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/Z" unique_id=1409400393]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Scale" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=509645089]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale" unique_id=891509506]
+layout_mode = 2
+
+[node name="Box_Particle_Size" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer" unique_id=1059308243]
+layout_mode = 2
+text = "Scale:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer" unique_id=1116348414]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="X" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer" unique_id=509699834]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/X" unique_id=1835874468]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48235294, 0.23921569, 0.28235295, 1)
+text = "X"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/X" unique_id=1723059772]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Y" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer" unique_id=1578078830]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/Y" unique_id=327999628]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39215687, 0.46666667, 0.23529412, 1)
+text = "Y"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/Y" unique_id=930771915]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Z" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer" unique_id=134851049]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/Z" unique_id=1478259228]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25882354, 0.38431373, 0.5254902, 1)
+text = "Z"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/Z" unique_id=2126832521]
+layout_mode = 2
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Time" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=172584307]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Particle_Random" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Time" unique_id=395542445]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Particle_Random" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Time/Particle_Random" unique_id=1933302259]
+layout_mode = 2
+text = "Animation Time: "
+
+[node name="Particle_Random2" type="SpinBox" parent="Gui/MarginContainer/VBoxContainer/Animation/Time/Particle_Random" unique_id=682670016]
+layout_mode = 2
+size_flags_horizontal = 0
+step = 0.1
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+
+[node name="Death" type="PanelContainer" parent="Gui/MarginContainer/VBoxContainer/Animation" unique_id=2020530554]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pxd2d")
+
+[node name="Particle_Random" type="HBoxContainer" parent="Gui/MarginContainer/VBoxContainer/Animation/Death" unique_id=2036443072]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Gui/MarginContainer/VBoxContainer/Animation/Death/Particle_Random" unique_id=1636714495]
+layout_mode = 2
+text = "Particle Death: "
+
+[node name="Particle_Type" type="OptionButton" parent="Gui/MarginContainer/VBoxContainer/Animation/Death/Particle_Random" unique_id=731765160]
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "TIME"
+popup/item_0/id = 0
+popup/item_1/text = "ANIMATION"
+popup/item_1/id = 1
+
+[connection signal="toggled" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Emitting/On_Off" to="Gui" method="_on_on_off_toggled"]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Max_Particle/Max_Particles/Max_Particles2" to="Gui" method="_on_max_particles_value_changed"]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/X/SpinBox" to="Gui" method="_on_spawn_size_value_changed" binds= [0]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/Y/SpinBox" to="Gui" method="_on_spawn_size_value_changed" binds= [1]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle Simulator/Spawn_Size/VBoxContainer/HBoxContainer/Z/SpinBox" to="Gui" method="_on_spawn_size_value_changed" binds= [2]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Lifetime/Particle_life/Particle_life2" to="Gui" method="_on_particle_life_value_changed"]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Ramdomness/Particle_Random/Particle_Random2" to="Gui" method="_on_particle_random_value_changed"]
+[connection signal="item_selected" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Type/Particle_Random/Particle_Type" to="Gui" method="_on_particle_type_item_selected"]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/X/SpinBox" to="Gui" method="_on_particle_size_value_changed" binds= [0]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/Y/SpinBox" to="Gui" method="_on_particle_size_value_changed" binds= [1]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Size/VBoxContainer/HBoxContainer/Z/SpinBox" to="Gui" method="_on_particle_size_value_changed" binds= [2]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Height/Sphere_Particle_Height/Sphere_Particle_Height2" to="Gui" method="_on_sphere_particle_height_value_changed"]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/HBoxContainer/Particle/Radius/Sphere_Particle_Radius/Sphere_Particle_Radius2" to="Gui" method="_on_sphere_particle_radius_value_changed"]
+[connection signal="color_changed" from="Gui/MarginContainer/VBoxContainer/Animation/StartColor/HBoxContainer/ColorPickerButton" to="Gui" method="_on_start_color_changed"]
+[connection signal="color_changed" from="Gui/MarginContainer/VBoxContainer/Animation/FinishColor/HBoxContainer/ColorPickerButton" to="Gui" method="_on_finish_color_changed"]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/X/SpinBox" to="Gui" method="_on_rotation_value_changed" binds= [0]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/Y/SpinBox" to="Gui" method="_on_rotation_value_changed" binds= [1]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Rotation/VBoxContainer/HBoxContainer/Z/SpinBox" to="Gui" method="_on_rotation_value_changed" binds= [2]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/X/SpinBox" to="Gui" method="_on_position_value_changed" binds= [0]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/Y/SpinBox" to="Gui" method="_on_position_value_changed" binds= [1]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Position/VBoxContainer/HBoxContainer/Z/SpinBox" to="Gui" method="_on_position_value_changed" binds= [2]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/X/SpinBox" to="Gui" method="_on_scale_value_changed" binds= [0]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/Y/SpinBox" to="Gui" method="_on_scale_value_changed" binds= [1]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Scale/VBoxContainer/HBoxContainer/Z/SpinBox" to="Gui" method="_on_scale_value_changed" binds= [2]]
+[connection signal="value_changed" from="Gui/MarginContainer/VBoxContainer/Animation/Time/Particle_Random/Particle_Random2" to="Gui" method="_on_animation_time_value_changed"]
+[connection signal="item_selected" from="Gui/MarginContainer/VBoxContainer/Animation/Death/Particle_Random/Particle_Type" to="Gui" method="_on_death_type_item_selected"]

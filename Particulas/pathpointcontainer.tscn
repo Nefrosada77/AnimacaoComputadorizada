@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bu3o78x27fjct"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=107072409]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 331.0
+offset_bottom = 39.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="X" type="HBoxContainer" parent="." unique_id=581927112]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="X" unique_id=1727273469]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48235294, 0.23921569, 0.28235295, 1)
+text = "X"
+
+[node name="SpinBox" type="SpinBox" parent="X" unique_id=568124766]
+layout_mode = 2
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Y" type="HBoxContainer" parent="." unique_id=2098438194]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Y" unique_id=167641228]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39215687, 0.46666667, 0.23529412, 1)
+text = "Y"
+
+[node name="SpinBox" type="SpinBox" parent="Y" unique_id=973997804]
+layout_mode = 2
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true
+
+[node name="Z" type="HBoxContainer" parent="." unique_id=1742428568]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Z" unique_id=1523128282]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25882354, 0.38431373, 0.5254902, 1)
+text = "Z"
+
+[node name="SpinBox" type="SpinBox" parent="Z" unique_id=230688796]
+layout_mode = 2
+max_value = 5.0
+step = 0.01
+alignment = 1
+update_on_text_changed = true

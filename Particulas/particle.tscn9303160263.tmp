@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dujqrotukw4kd"]
+
+[ext_resource type="Script" uid="uid://cmy70ywlkim8a" path="res://particleSimulator.gd" id="1_kgu82"]
+[ext_resource type="Texture2D" uid="uid://cwc4dkblh1g5s" path="res://explosion_spritesheet.png" id="2_pxd2d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pxd2d"]
+size = Vector3(10, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6yjb0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1s5k1"]
+stencil_flags = 2
+
+[node name="Node3D" type="Node3D" unique_id=1901529758]
+
+[node name="ParticleSimulator" type="Node3D" parent="." unique_id=353812113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_kgu82")
+spawn_range = SubResource("BoxMesh_pxd2d")
+particle_texture = ExtResource("2_pxd2d")
+sprite_sheet_h = 5
+sprite_sheet_v = 5
+animation_frames = 25
+finish_color = Color(1, 1, 1, 1)
+particle_death_type = Array[int]([2])
+metadata/_custom_type_script = "uid://cmy70ywlkim8a"
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=98544936]
+transform = Transform3D(0.7102248, -0.4665063, 0.5272121, -0.011636534, 0.7410253, 0.6713761, -0.70387876, -0.48296297, 0.5208661, 4, 5, 4)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1688573631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.475044, 0)
+size = Vector3(5, 0.2, 5)
+
+[node name="BoxParticle" type="MeshInstance3D" parent="." unique_id=1882631652]
+visible = false
+mesh = SubResource("BoxMesh_6yjb0")
+surface_material_override/0 = SubResource("StandardMaterial3D_1s5k1")
